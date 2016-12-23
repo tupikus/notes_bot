@@ -85,17 +85,11 @@ def handle_text(message):
         bot.send_chat_action(message.chat.id, 'upload_audio')
         bot.send_audio(message.chat.id, voice)
         voice.close()
-    elif message.text == 'C#':
-        #в доработке
-        bot.send_message(message_from_user.chat.id, 'YO!')
     elif message.text == 'D':
         #вариант с file_id прописанным вручную
         bot.send_chat_action(message.from_user.id, 'upload_audio')
         bot.send_audio(message.from_user.id, 'BQADAgADCgADHlPoDHw4LKzatQmbAg')
         #voice.close()
-    elif message.text == 'D#':
-        #в доработке
-        bot.send_message(message.chat.id, 'YO!')
     elif message.text == 'E':
         #нерабочий вариант, со считанным расположением файла из базы данных notes
         voice = open('Not\\E.ogg','rb')
@@ -104,12 +98,10 @@ def handle_text(message):
         voice.close()
     elif message.text == 'F':
         #нерабочий вариант со считанным file_id из базы данных notes
-        voice = open('Not\\F.ogg')
+        voice = note_F_id
         bot.send_chat_action(message.from_user.id, 'upload_audio')
         bot.send_voice(message.from_user.id, voice)
         voice.close()
-    elif message.text == 'F#':
-        bot.send_message(message.chat.id, 'YO!')
     elif message.text == 'G':
         #далее я не делал.
         directory = "C:\\Not"
@@ -118,8 +110,6 @@ def handle_text(message):
         bot.send_chat_action(message.from_user.id, 'upload_audio')
         bot.send_voice(message.from_user.id, voice)
         voice.close()
-    elif message.text == 'G#':
-        bot.send_message(message.chat.id, 'YO!')
     elif message.text == 'A':
         directory = "C:\\Not"
         all_files_in_directory = os.listdir(directory)
@@ -127,8 +117,6 @@ def handle_text(message):
         bot.send_chat_action(message.from_user.id, 'upload_audio')
         bot.send_voice(message.from_user.id, voice)
         voice.close()
-    elif message.text == 'A#':
-        bot.send_message(message.chat.id, 'YO!')
     elif message.text == 'B':
         directory = "C:\\Not"
         all_files_in_directory = os.listdir(directory)
@@ -143,16 +131,11 @@ def handle_text(message):
         Для вызова клавиатуры введите команду \start
         Для проигрывание ноты, вам требуется ввести её название.
         C - ДО;
-        С# - ДО ДИЕЗ;
         D - РЕ;
-        D# - РЕ ДИЕЗ;
         E - МИ;
         F - ФА;
-        F# - ФА ДИЕЗ;
         G - СОЛЬ;
-        G# - СОЛЬ ДИЕЗ;
         A - ЛЯ;
-        A# - ЛЯ ДИЕЗ;
         B - СИ.
         """)
 
