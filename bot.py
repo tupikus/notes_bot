@@ -132,6 +132,7 @@ def handle_text(message):
     else:
         bot.send_message(message.chat.id, """
         Информация:
+        Для вывода клавиатуры введите команду /start
         Для проигрывание ноты, вам требуется ввести её название.
         C - ДО;
         D - РЕ;
