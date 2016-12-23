@@ -74,8 +74,14 @@ def handle_start(message):
     user_markup.row('C','D')
     user_markup.row('E','F')
     user_markup.row('G','A','B')
+    user_markup.row('\help')
     bot.send_message(message.chat.id, "Welcome!", reply_markup=user_markup)
 
+@bot.message_handler(commands = ['help'])
+def info(message):
+    zapros = "SELECT info_com FROM comands WHERE name_com IS '\help'"
+    otvet = db.query(zapros)
+    bot.send_message(message.chat.id, otvet)
 
 @bot.message_handler(content_types = ['text'])
 def handle_text(message):
@@ -128,7 +134,6 @@ def handle_text(message):
     else:
         bot.send_message(message.chat.id, """
         Информация:
-        Для вызова клавиатуры введите команду \start
         Для проигрывание ноты, вам требуется ввести её название.
         C - ДО;
         D - РЕ;
