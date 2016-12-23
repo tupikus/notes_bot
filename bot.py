@@ -6,6 +6,7 @@ import telebot
 import config
 import os
 import db
+import json
 
 
 bot = telebot.TeleBot(config.token)
@@ -62,7 +63,7 @@ note_B_id = db.query(note_B)
 upd = bot.get_updates()
 last_upd = upd[-1]
 message_from_user = last_upd.message
-chat_id = str(message_from_user.chat.id)
+chat_id = message_from_user.chat.id
 
 #указываем корневую директорию
 directory = "C:\\Users\\101\\PycharmProjects\\notbl\\Not"
@@ -73,9 +74,9 @@ def handle_start(message):
     user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
     user_markup.row('C','D')
     user_markup.row('E','F')
-    user_markup.row('G','A','B')
-    user_markup.row('\help')
-    bot.send_message(message.chat.id, "Welcome!", reply_markup=user_markup)
+    user_markup.row('G','A')
+    user_markup.row('B','\help')
+    bot.send_message(message.chat.id, "Welcome! Выбери ноту.", reply_markup=user_markup)
 
 @bot.message_handler(commands = ['help'])
 def info(message):
@@ -87,50 +88,47 @@ def info(message):
 def handle_text(message):
     #рабочий вариант с указанием размещения файла вручную в переменной voice
     if message.text == 'C':
-        voice = open('Not\\C.ogg','rb')
+        print('Пользователь', message.from_user.first_name, message.from_user.last_name , 'прислал сообщение:',
+              message.text)
         bot.send_chat_action(message.chat.id, 'upload_audio')
-        bot.send_audio(message.chat.id, voice)
-        voice.close()
+        bot.send_audio(message.chat.id, note_C_id[0])
+        #voice.close()
     elif message.text == 'D':
-        #вариант с file_id прописанным вручную
+        print('Пользователь', message.from_user.first_name, message.from_user.last_name, 'прислал сообщение:',
+              message.text)
         bot.send_chat_action(message.from_user.id, 'upload_audio')
-        bot.send_audio(message.from_user.id, 'BQADAgADCgADHlPoDHw4LKzatQmbAg')
+        bot.send_audio(message.from_user.id, note_D_id[0])
         #voice.close()
     elif message.text == 'E':
-        #нерабочий вариант, со считанным расположением файла из базы данных notes
-        voice = open('Not\\E.ogg','rb')
+        print('Пользователь', message.from_user.first_name, message.from_user.last_name, 'прислал сообщение:',
+              message.text)
         bot.send_chat_action(message.from_user.id, 'upload_audio')
-        bot.send_voice(message.from_user.id, voice)
-        voice.close()
+        bot.send_audio(message.from_user.id, note_E_id[0])
+        #voice.close()
     elif message.text == 'F':
-        #нерабочий вариант со считанным file_id из базы данных notes
-        voice = note_F_id
+        print('Пользователь', message.from_user.first_name, message.from_user.last_name, 'прислал сообщение:',
+              message.text)
         bot.send_chat_action(message.from_user.id, 'upload_audio')
-        bot.send_voice(message.from_user.id, voice)
-        voice.close()
+        bot.send_audio(message.from_user.id, note_F_id[0])
+        #voice.close()
     elif message.text == 'G':
-        #далее я не делал.
-        directory = "C:\\Not"
-        all_files_in_directory = os.listdir(directory)
-        voice = open("C:\\Not\\G.ogg",'rb')
+        print('Пользователь', message.from_user.first_name, message.from_user.last_name, 'прислал сообщение:',
+              message.text)
         bot.send_chat_action(message.from_user.id, 'upload_audio')
-        bot.send_voice(message.from_user.id, voice)
-        voice.close()
+        bot.send_audio(message.from_user.id, note_G_id[0])
+        #voice.close()
     elif message.text == 'A':
-        directory = "C:\\Not"
-        all_files_in_directory = os.listdir(directory)
-        voice = open("C:\\Not\\A.ogg",'rb')
+        print('Пользователь', message.from_user.first_name, message.from_user.last_name, 'прислал сообщение:',
+              message.text)
         bot.send_chat_action(message.from_user.id, 'upload_audio')
-        bot.send_voice(message.from_user.id, voice)
-        voice.close()
+        bot.send_audio(message.from_user.id, note_A_id[0])
+        #voice.close()
     elif message.text == 'B':
-        directory = "C:\\Not"
-        all_files_in_directory = os.listdir(directory)
-        voice = open("C:\\Not\\B.ogg",'rb')
-        file_id = "BQADAgADCAADHlPoDDNkmpYrQYhwAg"
+        print('Пользователь', message.from_user.first_name, message.from_user.last_name, 'прислал сообщение:',
+              message.text)
         bot.send_chat_action(message.from_user.id, 'upload_audio')
-        bot.send_voice(message.from_user.id, voice)
-        voice.close()
+        bot.send_audio(message.from_user.id, note_B_id[0])
+        #voice.close()
     else:
         bot.send_message(message.chat.id, """
         Информация:
