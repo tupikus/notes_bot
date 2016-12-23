@@ -68,6 +68,14 @@ chat_id = str(message_from_user.chat.id)
 directory = "C:\\Users\\101\\PycharmProjects\\notbl\\Not"
 all_files_in_directory = os.listdir(directory)
 
+@bot.message_handler(commands = ['start'])
+def handle_start(message):
+    user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
+    user_markup.row('C','D')
+    user_markup.row('E','F')
+    user_markup.row('G','A','B')
+    bot.send_message(message.chat.id, "Welcome!", reply_markup=user_markup)
+
 
 @bot.message_handler(content_types = ['text'])
 def handle_text(message):
@@ -90,13 +98,13 @@ def handle_text(message):
         bot.send_message(message.chat.id, 'YO!')
     elif message.text == 'E':
         #нерабочий вариант, со считанным расположением файла из базы данных notes
-        voice = open(L_E,'rb')
+        voice = open('Not\\E.ogg','rb')
         bot.send_chat_action(message.from_user.id, 'upload_audio')
         bot.send_voice(message.from_user.id, voice)
         voice.close()
     elif message.text == 'F':
         #нерабочий вариант со считанным file_id из базы данных notes
-        voice = note_F_id
+        voice = open('Not\\F.ogg')
         bot.send_chat_action(message.from_user.id, 'upload_audio')
         bot.send_voice(message.from_user.id, voice)
         voice.close()
@@ -132,6 +140,7 @@ def handle_text(message):
     else:
         bot.send_message(message.chat.id, """
         Информация:
+        Для вызова клавиатуры введите команду \start
         Для проигрывание ноты, вам требуется ввести её название.
         C - ДО;
         С# - ДО ДИЕЗ;
